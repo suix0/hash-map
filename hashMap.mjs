@@ -98,7 +98,43 @@ function HashMap() {
     return keysArr
   }
   
-  return { getBuckets, hash, set, get, remove, length, clear, keys }
+  function values() {
+    let valuesArr = []
+    for (let i = 0; i < hashMapSize; i++) {
+      if (buckets[i] !== undefined) {
+        let bucket = buckets[i].getHead()
+        while (bucket !== null) {
+          valuesArr.push(Object.values(bucket.value)[1]);
+          bucket = bucket.next;
+        }
+      }
+    }
+    return valuesArr
+  }
+
+  function entries() {
+    let entries = [];
+    for (let i = 0; i < hashMapSize; i++) {
+      if (buckets[i] !== undefined) {
+        let bucket = buckets[i].getHead();
+        while (bucket !== null) {
+          entries.push([Object.values(bucket.value)[0], Object.values(bucket.value)[1]]);
+          bucket = bucket.next;
+        }
+      }
+    }
+    return entries
+  }
+
+  return { getBuckets, hash, set, get, remove, length, clear, keys, values, entries }
 }
 
-const hashInstance = HashMap();
+const hashMap = HashMap();
+hashMap.set('apple', 'red')
+hashMap.set('banana', 'yellow')
+hashMap.set('carrot', 'orange')
+hashMap.set('dog', 'brown')
+hashMap.set('elephant', 'gray')
+console.log(hashMap.keys());
+console.log(hashMap.values());
+console.log(hashMap.entries());
