@@ -11,6 +11,11 @@ function Node(data) {
 
 function linkedList() {
   let head = Node(); // named head because that's the start of the list
+  
+  function setHead(newHead) {
+    head = newHead
+  }
+
   function append(key, val, headRef = head) {
     if (head.value === null && head.next === null) {
       head = Node({key,val});
@@ -89,6 +94,14 @@ function linkedList() {
     }
   }
 
+  function getValue(key, headRef = head) {
+    if (Object.values(headRef.value)[0] === key) {
+      return Object.values(headRef.value)[1]
+    } else {
+      return get(key, headRef.next);
+    }
+  }
+
   function find(value, headRef = head, counter = 0) {
     try {
       if (headRef.value === value) {
@@ -117,7 +130,7 @@ function linkedList() {
     }
     console.log(linkedListStr);
   }
-  return { head, append, prepend, getHead, tail, size, at, pop, contains, find, toString }
+  return { head, append, prepend, getHead, tail, size, at, pop, contains, find, toString, getValue, setHead }
 }
 
 
