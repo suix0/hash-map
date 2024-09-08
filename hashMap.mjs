@@ -2,8 +2,13 @@ import { Node, linkedList } from './linkedList.mjs'
 
 function HashMap() {
   let hashMapSize = 16
+  const loadFactor = 0.75;
   let buckets = new Array(hashMapSize);
   let totalEntries = 0;
+  
+  function treshold() {
+    return hashMapSize * loadFactor
+  }
 
   function incrementEntries() {
     totalEntries++;
@@ -31,6 +36,13 @@ function HashMap() {
     }
     buckets[index].append(key, value);
     incrementEntries();
+
+    // double the hashMap size when it exceeds
+    // a certain treshold
+    if (totalEntries > parseInt(treshold())) {
+      hashMapSize = hashMapSize * 2
+      buckets.length = hashMapSize;
+    }
   }
 
   function get(key) {
@@ -135,6 +147,12 @@ hashMap.set('banana', 'yellow')
 hashMap.set('carrot', 'orange')
 hashMap.set('dog', 'brown')
 hashMap.set('elephant', 'gray')
-console.log(hashMap.keys());
-console.log(hashMap.values());
+hashMap.set('frog', 'green')
+hashMap.set('grape', 'purple')
+hashMap.set('hat', 'black')
+hashMap.set('ice cream', 'white')
+hashMap.set('jacket', 'blue')
+hashMap.set('kite', 'pink')
+hashMap.set('lion', 'golden')
+hashMap.set('patrick', 'star')
 console.log(hashMap.entries());
