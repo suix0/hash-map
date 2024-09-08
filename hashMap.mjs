@@ -1,7 +1,8 @@
 import { Node, linkedList } from './linkedList.mjs'
 
 function HashMap() {
-  let buckets = new Array(16);
+  let hashMapSize = 16
+  let buckets = new Array(hashMapSize);
   let totalEntries = 0;
 
   function incrementEntries() {
@@ -78,13 +79,16 @@ function HashMap() {
     return totalEntries;
   }
   
+  function clear() {
+    buckets = new Array(hashMapSize);
+    totalEntries = 0;
+  }
   
-  return { getBuckets, hash, set, get, remove, length }
+  return { getBuckets, hash, set, get, remove, length, clear }
 }
 
 const hashInstance = HashMap();
 hashInstance.set('i', 'Kek');
 hashInstance.set('Ulala', 'Ukelele');
 hashInstance.set('ab', 'tatata');
-hashInstance.set('Yawa', 'tatata');
-console.log(hashInstance.length())
+hashInstance.set('Yawa ', 'tatata');
