@@ -83,12 +83,22 @@ function HashMap() {
     buckets = new Array(hashMapSize);
     totalEntries = 0;
   }
+
+  function keys() {
+    let keysArr = []
+    for (let i = 0; i < hashMapSize; i++) {
+      if (buckets[i] !== undefined) {
+        let bucket = buckets[i].getHead()
+        while (bucket !== null) {
+          keysArr.push(Object.values(bucket.value)[0]);
+          bucket = bucket.next;
+        }
+      }
+    }
+    return keysArr
+  }
   
-  return { getBuckets, hash, set, get, remove, length, clear }
+  return { getBuckets, hash, set, get, remove, length, clear, keys }
 }
 
 const hashInstance = HashMap();
-hashInstance.set('i', 'Kek');
-hashInstance.set('Ulala', 'Ukelele');
-hashInstance.set('ab', 'tatata');
-hashInstance.set('Yawa ', 'tatata');
