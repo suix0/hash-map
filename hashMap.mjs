@@ -9,9 +9,19 @@ function HashMap() {
   function treshold() {
     return hashMapSize * loadFactor
   }
+  
+  function getEntries() {
+    return totalEntries;
+  }
 
   function incrementEntries() {
     totalEntries++;
+  }
+
+  function decrementEntries() {
+    // this is for when we only overwrite an
+    // existing entry in a bucket
+    totalEntries--;
   }
 
   function getBuckets() {
@@ -30,19 +40,20 @@ function HashMap() {
   }
 
   function set(key, value) {
+    incrementEntries();
+    // double the hashMap size when it exceeds
+    // a certain treshold
+    if (totalEntries > Math.ceil(treshold())) {
+      console.log(Math.ceil(treshold()))
+      hashMapSize = hashMapSize * 2
+      buckets.length = hashMapSize;
+    }
+
     const index = hash(key);
     if (buckets[index] === undefined) {
       buckets[index] = linkedList();
     }
     buckets[index].append(key, value);
-    incrementEntries();
-
-    // double the hashMap size when it exceeds
-    // a certain treshold
-    if (totalEntries > parseInt(treshold())) {
-      hashMapSize = hashMapSize * 2
-      buckets.length = hashMapSize;
-    }
   }
 
   function get(key) {
@@ -88,7 +99,7 @@ function HashMap() {
   }
 
   function length() {
-    return totalEntries;
+    return entries().length;
   }
   
   function clear() {
@@ -138,7 +149,7 @@ function HashMap() {
     return entries
   }
 
-  return { getBuckets, hash, set, get, remove, length, clear, keys, values, entries }
+  return { getBuckets, hash, set, get, remove, length, clear, keys, values, entries, decrementEntries }
 }
 
 const hashMap = HashMap();
@@ -154,5 +165,7 @@ hashMap.set('ice cream', 'white')
 hashMap.set('jacket', 'blue')
 hashMap.set('kite', 'pink')
 hashMap.set('lion', 'golden')
-hashMap.set('patrick', 'star')
-console.log(hashMap.entries());
+hashMap.set('spongebob', 'krustykrab')
+hashMap.set('spongebob', 'krabbypaties')
+console.log(hashMap.entries())
+console.log(hashMap.length())

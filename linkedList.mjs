@@ -98,7 +98,7 @@ function linkedList() {
     if (Object.values(headRef.value)[0] === key) {
       return Object.values(headRef.value)[1]
     } else {
-      return get(key, headRef.next);
+      return getValue(key, headRef.next);
     }
   }
 
